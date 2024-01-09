@@ -106,6 +106,67 @@ var bookings [50]string
 
 - abstraction of an array i.e. works as arrays under-the-hood but has a variable length
 - index-based and have a size (can be re-sized)
+- basic syntax of an empty slice:
+```go
+var bookings []string
+
+// appending values in the slice:
+bookings = append(bookings, firstName+" "+lastName)
+```
+
+### Loops
+- Loops are simplified in Go - we only have a 'for loop', but it has different types as well:
+  - infinite loop
+    ```go
+    for {}
+    ```
+  - for-each loop
+    - here, a 'range' keyword helps us to iterate over an entire data type (not just array or slice) and returns the index & the element itself
+    - `_` is called a blank identifier that helps to ignore the vars that we don't use. For example:
+      ```go
+      for _, booking := range bookings {
+			names := strings.Fields(booking) // converts the string name into a slice (elements separated by ',')
+
+			// adding the firstname to our new slice
+			firstNames = append(firstNames, names[0])
+		}
+      ```
+    
+### Conditionals
+
+- Example (if):
+```go
+if remainTickets == 0 {
+  // end program
+  fmt.Println("Tickets are sold out! See you next year.")
+  break
+}
+```
+- `continue` - skips the rest of the body in the loop & directly moves to the next iteration.
+- Different types:
+  - `if`
+  - `if...else`
+  - `else...if` - can have as many b/w an `if...else` block
+
+### Functions
+
+- aim: making the code cleaner & descriptive
+- normally, we cannot return multiple values in a function, but in Go we can:
+```go
+func validateUserInput(firstName string, lastName string, email string, userTickets uint) (bool, bool, bool) {
+
+	// input validation
+	isValidName := len(firstName) >= 2 && len(lastName) >= 2
+	isValidEmail := strings.Contains(email, "@") // gives back boolean result
+	isValidTicketNum := userTickets > 0 && userTickets < remainTickets
+
+	return isValidName, isValidEmail, isValidTicketNum
+}
+```
+
+### Package Level Variables
+
+- defined outside of all the functions & are accessible by all of them
 
 # References/Resources
 
