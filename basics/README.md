@@ -166,8 +166,86 @@ func validateUserInput(firstName string, lastName string, email string, userTick
 
 ### Package Level Variables
 
-- defined outside of all the functions & are accessible by all of them
+- defined outside all the functions & are accessible by all of them
+
+### Go Packages
+
+- package: a collection of Go files 
+- variables & functions defined outside a function, can be accessed in all other files 'within the same package'
+- multiple packages. A few pointers while using multiple packages:
+  - the particular needs to be explicitly imported to files outside the package - for functions to be used
+    ```go
+    import (
+	helper "Go-Learn/basics/helper" // "module_name/package"
+	"fmt"
+	"strings"
+	)
+    
+    // referencing the function from a file in helper package
+    helper.ValidateUserInput(firstName, lastName, email, userTickets)
+    ```
+  - exporting a variable or function - start the name with a CAPITAL letter:
+    ```go
+    func ValidateUserInput(firstName string, .....
+    ```
+- Variables: 3 Levels of Scope
+  1. Local - declared within functions or blocks (like if..else). can be used only within functions or those blocks
+  2. Package - direct access to the entire package
+  3. Global
+
+### Maps
+
+- a data type that allows to store data in unique key-value pairs
+- empty map syntax:
+  ```go
+  userData := make(map[string]string) // "map[key_data_type]value_data_type"
+  
+  // adding values:
+  userData["firstName"] = firstName
+  userData["lastName"] = lastName
+  userData["email"] = email
+  userData["numOfTickets"] = strconv.FormatUint(uint64(userTickets), 10) // converting 'uint' to 'string'
+  ```
+  
+### Struct
+
+- key-value data structure that can store mix data types (unlike a map)
+- basic syntax:
+  ```go
+  type UserData struct {
+	    firstName    string
+	    lastName     string
+	    email        string
+	    numOfTickets uint
+  }
+  ```
+- basically, we can create a custom type and give it a new "value-type" it can take i.e. properties.
+
+### Goroutines - Concurrency Concept
+
+- goroutine - a lightweight thread managed by the Go runtime
+- using a `go` keyword: starts the execution of a function call as an independent concurrent thread of control, or goroutine, within the same address space.
+  ```go
+  go sendTicket(userTickets, firstName, lastName, email)
+  ```
+- by default, the main goroutine (or thread) does not wait for other goroutines. Therefore, if a function in the main thread exits i.e. the entire program exits in the main thread, rest of the threads will not even execute!
+  - Solution: Make the main goroutine wait, till other threads get executed (the ones getting created separately)
+    - using a `WaitGroup` - waits for the launched (main) goroutine to finish
+      - basic syntax:
+        ```go
+          var wg = sync.WaitGroup{} // global declaration
+        ```
+      - different functions we use: `Add()`, `Wait()`, `Done()`
+- Communication between different gorountines can be done using [channels](https://www.educative.io/answers/what-are-channels-in-golang) in Go
+
+## Interesting Bits
+
+- Difference b/w `Printf` and `Sprintf`:
+The `fmt.Sprintf` function is used to format strings and return the resulting string without printing it to the standard output.
+It is similar to `fmt.Printf`, but instead of printing the formatted string, it returns the string as a value.
 
 # References/Resources
 
+- [Beginner's Tutorial by TechWorld with Nana](https://youtu.be/yyUHQIec83I?feature=shared)
 - Refer the [standard library](https://pkg.go.dev/std) for more Go packages
+- [strconv package](https://pkg.go.dev/strconv): conversions to and from string representations of basic data types
