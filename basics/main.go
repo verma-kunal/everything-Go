@@ -22,7 +22,7 @@ type UserData struct {
 	numOfTickets uint
 }
 
-c
+var wg = sync.WaitGroup{}
 
 func main() {
 
