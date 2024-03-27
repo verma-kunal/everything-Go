@@ -86,7 +86,7 @@ func main() {
 		return updateErr
 	})
 	if retryErr != nil {
-		panic(fmt.Errorf("Pod Update failed: %v", retryErr))
+		panic(retryErr.Error())
 	}
 
 	// delete a pod
