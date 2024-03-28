@@ -2,8 +2,6 @@ package main
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -42,22 +40,19 @@ func AuthMiddleware(next http.Handler) http.Handler {
 		} else if reqMethod == "DELETE" {
 			action = "delete"
 		}
-		// // create a new principle object
+
+		// reate a new principle object
 		principal := cerbos.NewPrincipal(userId, userRole)
 
 		// create a new resource object
 		resource := cerbos.NewResource("posts", action)
 
-		// check resources
-		isAllowed, err := cerbosClient.IsAllowed(context.TODO(), principal, resource, action)
+		batch := cerbos.NewResourceBatch().Add(resource, action)
+
+		resp, err := cerbosClient.CheckResources(context.Background(), principal, batch)
 		if err != nil {
-			panic(err.Error())
+			log.Fatalf("Failed to check resources: %v", err)
 		}
-		if !isAllowed {
-			err := errors.New("NOT AUTHORIZED")
-			fmt.Println(err)
-		} else {
-			next.ServeHTTP(w, req)
-		}
+		log.Printf("%v", resp)
 	})
 }
