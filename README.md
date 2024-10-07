@@ -4,10 +4,12 @@
 
 This repository includes all my code while learning the concepts of Golang!
 
-## Theory
+<details>
+<summary> Essential Theory</summary>
+
 ### Some facts about Go
 
-- developed by Google in 2007 
+- developed by Google in 2007
 - open Sourced in 2009
 
 ### Why do we need Go? - Go Use cases
@@ -21,6 +23,7 @@ This repository includes all my code while learning the concepts of Golang!
 - Built-in concurrency mechanism
 
 Essentially, here are is the main use case of Go:
+
 - Building performant applications
 - Running on scaled, distributed systems i.e. where there are 100s or 1000s of servers!
 - Mostly use with Cloud Development
@@ -36,23 +39,17 @@ Essentially, here are is the main use case of Go:
   - web apps
   - database services
 - Few examples of production-grade Go use cases:
-  - Kubernetes 
+  - Kubernetes
   - Docker
   - Hashicorp Vault
   - Cockroach DB
 - Compiled language - That means this can be compiled into a single binary (machine code) and we can use this same binary file across different OS
 
 ### Some Advantages
+
 - Simple syntax: easy to learn, read and write code
 - Fast build time, start up and run time
 - Requires fewer resources
   - Efficient garbage collection (GC)
 
-
-
-
-
-
-
-
-
+</details>
